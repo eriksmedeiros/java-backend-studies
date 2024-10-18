@@ -1,16 +1,22 @@
 package model;
-public class Livro extends Material{
+public class Livro implements Material{
+    private String titulo;
     private String autor;
-    private int anoDeLancamento;
+    private int anoLancamento;
     private String edicao;
-    private int numPaginas;
 
-    public Livro(String titulo, String autor, int anoDeLancamento, String edicao, int numPaginas) {
-        super(titulo);
+    public Livro() {
+        this.titulo = "";
+        this.autor = "";
+        this.anoLancamento = 0;
+        this.edicao = "";
+    }
+
+    public Livro(String titulo, String autor, int anoLancamento, String edicao, int numPaginas) {
+        this.titulo = titulo;
         this.autor = autor;
-        this.anoDeLancamento = anoDeLancamento;
+        this.anoLancamento = anoLancamento;
         this.edicao = edicao;
-        this.numPaginas = numPaginas;
     }
 
     public String getAutor() {
@@ -21,12 +27,12 @@ public class Livro extends Material{
         this.autor = autor;
     }
 
-    public int getAnoDeLancamento() {
-        return anoDeLancamento;
+    public int getAnoLancamento() {
+        return anoLancamento;
     }
 
-    public void setAnoDeLancamento(int anoDeLançamento) {
-        this.anoDeLancamento = anoDeLancamento;
+    public void setAnoLancamento(int anoLancamento) {
+        this.anoLancamento = anoLancamento;
     }
 
     public String getEdicao() {
@@ -37,20 +43,10 @@ public class Livro extends Material{
         this.edicao = edicao;
     }
 
-    public int getNumPaginas() {
-        return numPaginas;
-    }
-
-    public void setNumPaginas(int numPaginas) {
-        this.numPaginas = numPaginas;
-    }
-
-    @Override
-    public void exibeDetalhes(){
-        super.exibeDetalhes();
+    public void exibirDetalhes(){
+        System.out.println("Título: " + titulo);
         System.out.println("Autor: " + autor);
-        System.out.println("Ano de lançamento: " + anoDeLancamento);
+        System.out.println("Ano de lançamento: " + anoLancamento);
         System.out.println("Edição: " + edicao);
-        System.out.println("Número de páginas: " + numPaginas);
     }
 }
