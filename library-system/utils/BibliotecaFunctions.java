@@ -1,64 +1,89 @@
 package utils;
 
 import DAO.BibliotecaDAO;
-import model.Livro;
-import model.Material;
-import model.Revista;
+import model.*;
 
-public class BibliotecaFunctions {
-    private BibliotecaDAO biblioteca;
+public abstract class BibliotecaFunctions {
 
-    public BibliotecaFunctions() {
-        this.biblioteca = BibliotecaDAO.getInstance();
+    private static BibliotecaDAO banco = BibliotecaDAO.getIntance();
+
+    public static void pesquisarMaterial(String nome) {
+
+        Material material = buscaPorNome(nome);
+
+        if (material == null) {
+            System.out.println("\n########################################");
+            System.out.println("Material não localizado");
+            System.out.println("########################################\n");
+            return;
+        }
+        if (material instanceof Livro) {
+            System.out.println("\n########################################");
+            System.out.println("Livro localizado");
+            ((Livro) material).exibirDetalhes();
+        }
+
+        if (material instanceof Revista) {
+            System.out.println("\n########################################");
+            System.out.println("Revista localizada");
+            ((Revista) material).exibirDetalhes();
+
+        }
+
     }
 
-    public void pesquisarMaterial(String titulo){
-        Material mtr = null;
-        for (Material mt : biblioteca.getArrayMateriais()){
-            if(mt.getTitulo().equalsIgnoreCase(titulo)){
-                mtr = mt;
-                break;
+    public static void exibirListaMateriais() {
+        for (Material material : banco.getArrayMateriais()) {
+            System.out.println("\n########################################");
+            if (material instanceof Livro) {
+                System.out.println("Livro:");
+            }
+            if (material instanceof Revista) {
+                System.out.println("Revista:");
+            }
+            material.exibirDetalhes();
+            ;
+        }
+    }
+
+    public static void cadastarMaterial(String titulo, String editora, int numeroPaginas) {
+        Revista rt = new Revista(titulo, editora, numeroPaginas);
+        banco.getArrayMateriais().add(rt);
+    }
+
+    public static void cadastarMaterial(String titulo, String autor, int anoLancamento, String edicao) {
+        Livro lt = new Livro(titulo, autor, anoLancamento, edicao);
+        banco.getArrayMateriais().add(lt);
+    }
+
+    public static void removerMaterial(String titulo) {
+        Material mt = buscaPorNome(titulo);
+
+        if (mt == null) {
+            System.out.println("\nElemento não localizado");
+            return;
+        } else {
+            banco.getArrayMateriais().remove(mt);
+        }
+    }
+    
+    private static Material buscaPorNome(String titulo) {
+
+        for (Material mt : banco.getArrayMateriais()) {
+            if (mt instanceof Livro) {
+                if (((Livro) mt).getTitulo().equals(titulo)) {
+                    return mt;
+                }
+            }
+
+            if (mt instanceof Revista) {
+                if (((Revista) mt).getTitulo().equals(titulo)) {
+                    return mt;
+                }
             }
         }
-        if (mtr == null){
-            System.out.println("Não encontrado");
-        } else{
-            mtr.exibeDetalhes();
-        }
-    }
 
-    public void exibirListaMateriais(){
-        for (Material mt : biblioteca.getArrayMateriais()){
-            if (mt != null){
-                mt.exibeDetalhes();
-            }
-        }
-    }
-
-    public void cadastrarMaterial(String titulo, String autor, int anoDeLancamento, String edicao, int numPaginas){
-        Livro l = new Livro(titulo, autor, anoDeLancamento, edicao, numPaginas);
-        biblioteca.getArrayMateriais().add(l);
-        System.out.println("Material cadastrado com sucesso!");
-    }
-
-    public void cadastrarMaterial(String titulo, String autor, int anoDeLancamento, String edicao, int numPaginas, String editora){
-        Revista r = new Revista(titulo, autor, anoDeLancamento, edicao, numPaginas, editora);
-        biblioteca.getArrayMateriais().add(r);
-        System.out.println("Material cadastrado com sucesso!");
-    }
-
-    public void removerMaterial(String titulo){
-        Material materialARemover = null;
-        for (Material mt : biblioteca.getArrayMateriais()) {
-            if (mt.getTitulo().equalsIgnoreCase(titulo)) {
-                materialARemover = mt;
-                break;
-            }
-        }
-        if (materialARemover != null) {
-            biblioteca.getArrayMateriais().remove(materialARemover);
-            System.out.println("Material removido com sucesso!");
-        }
+        return null;
     }
 
 }

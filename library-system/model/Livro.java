@@ -6,17 +6,21 @@ public class Livro implements Material{
     private String edicao;
 
     public Livro() {
-        this.titulo = "";
-        this.autor = "";
-        this.anoLancamento = 0;
-        this.edicao = "";
     }
 
-    public Livro(String titulo, String autor, int anoLancamento, String edicao, int numPaginas) {
+    public Livro(String titulo, String autor, int anoLancamento, String edicao) {
         this.titulo = titulo;
         this.autor = autor;
         this.anoLancamento = anoLancamento;
         this.edicao = edicao;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getAutor() {
@@ -43,6 +47,7 @@ public class Livro implements Material{
         this.edicao = edicao;
     }
 
+    @Override
     public void exibirDetalhes(){
         System.out.println("Título: " + titulo);
         System.out.println("Autor: " + autor);

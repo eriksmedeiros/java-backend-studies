@@ -1,11 +1,33 @@
 package model;
+public class Revista implements Material {
 
-public class Revista extends Livro {
-    private String editora;
+    String titulo;
+    String editora;
+    int numeroPaginas;
 
-    public Revista(String titulo, String autor, int anoDeLancamento, String edicao, int numPaginas, String editora) {
-        super(titulo, autor, anoDeLancamento, edicao, numPaginas);
+
+    public Revista(String titulo, String editora, int numeroPaginas) {
+        this.titulo = titulo;
         this.editora = editora;
+        this.numeroPaginas = numeroPaginas;
+    }
+
+    public Revista() {}
+
+    @Override
+    public void exibirDetalhes() {
+        System.out.println("Titulo: " + getTitulo());
+        System.out.println("Editora: " + getEditora());
+        System.out.println("Numero de paginas: " + getNumeroPaginas());
+    }
+
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getEditora() {
@@ -16,9 +38,13 @@ public class Revista extends Livro {
         this.editora = editora;
     }
 
-    @Override
-    public void exibeDetalhes(){
-        super.exibeDetalhes();
-        System.out.println("Editora: " + editora);
+    public int getNumeroPaginas() {
+        return numeroPaginas;
     }
+
+    public void setNumeroPaginas(int numeroPaginas) {
+        this.numeroPaginas = numeroPaginas;
+    }
+
+    
 }

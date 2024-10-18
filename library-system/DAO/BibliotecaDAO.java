@@ -1,26 +1,26 @@
 package DAO;
 
-import model.Material;
-
 import java.util.ArrayList;
+import model.*;
 
 public class BibliotecaDAO {
 
-    private ArrayList<Material> materiais;
+    ArrayList<Material> material;
+    
     private static BibliotecaDAO banco;
 
-    private BibliotecaDAO() {
-        materiais = new ArrayList<>();
+    private BibliotecaDAO(){
+        material = new ArrayList<>();
     }
 
-    public static BibliotecaDAO getInstance() {
-        if (banco == null) {
+    public static BibliotecaDAO getIntance(){
+        if(banco == null){
             banco = new BibliotecaDAO();
         }
         return banco;
     }
 
-    public ArrayList<Material> getArrayMateriais() {
-        return materiais;
+    public ArrayList<Material> getArrayMateriais(){
+        return material;
     }
 }
